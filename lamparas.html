@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>lamparas</title>
+	<meta charset="UTF-8">
+	<link rel=StyleSheet type="text/css" href= "estilo.css" >
+</head>
+<body>
+
+<div id="hola">Cantidad de jugadas : 0 </div>	
+<div> 
+	<th><button name="button" onclick="agregarFila()">AGREGAR FILA</button></th>
+	<th><button name="button" onclick="agregarColumna()">AGREGAR COLUMNA</button></th>
+
+</div>
+
+
+<div class="tablero">
+	<table class="contador" border="1" id="tabla">
+		<thead>
+			<tr class="botonesColumnas">
+			<th></th>
+			<th><button name="button" onclick="changeImage(1 , 1)">C1</button></th>
+			<th><button name="button" onclick="changeImage(1 , 2)">C2</button></th>
+			<th><button name="button" onclick="changeImage(1 , 3)">C3</button></th>
+			<th><button name="button" onclick="changeImage(1 , 4)">C4</button></th>
+			<th><button name="button" onclick="changeImage(1 , 5)">C5</button></th>
+			<th><button name="button" onclick="changeImage(1 , 6 )">C6</button></th>
+			</tr>
+		</thead>
+
+
+
+		<tr class="fila1">
+            <th><button name="button" onclick="changeImage(0 , 1)" >F1</button></th>
+			<td><img src="imagen1.png"  width="40"    height="40"  id="imagen1"></td>
+			<td><img src="imagen1.png"  width="40"    height="40"              ></td>
+			<td><img src="imagen1.png"  width="40"    height="40" ></td>
+            <td><img src="imagen1.png"  width="40"    height="40" ></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+		</tr>
+		<tr class = "fila2"> 
+            <th><button name="button" onclick="changeImage(0 , 2)" >F2</button></th>
+			<td><img src="imagen1.png"  width="40"    height="40" ></td>
+            <td><img src="imagen1.png"  width="40"    height="40" ></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+			<td><img src="imagen1.png"  width="40"    height="40"></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+
+			
+		</tr>
+        <tr class = "fila3">
+			<th><button name="button"  onclick="changeImage(0 , 3)" >F3</button></th>
+			<td><img src="imagen1.png"  width="40"    height="40" ></td>
+            <td><img src="imagen1.png"  width="40"    height="40" ></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+			<td><img src="imagen1.png"  width="40"    height="40"></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+		</tr>
+        <tr class = "fila4" >
+			<th><button name="button"  onclick="changeImage(0 , 4)" >F4</button></th>
+			<td><img src="imagen1.png"  width="40"    height="40" ></td>
+            <td><img src="imagen1.png"  width="40"    height="40" ></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+			<td><img src="imagen1.png"  width="40"    height="40"></td>
+            <td><img src="imagen1.png"  width="40"    height="40"></td>
+		</tr>
+
+	</table>
+<script>
+
+
+
+
+var cantidadJugadas = 0;
+apagarLuces(3);
+
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+
+
+function apagarLuces (number1) {
+
+ var tabla = document.getElementById("tabla");
+ var cantidadFilas = tabla.rows.length;
+ var cantidadColumnas = tabla.rows[0].cells.length;
+
+
+for (let index = 0; index < number1 ; index++){
+	const numRows = getRandomInt(1, cantidadFilas );
+	const numCell = getRandomInt(1, cantidadColumnas );
+
+	console.log(`Fila = ${numRows}, Columna = ${numCell}`);
+
+	tabla.rows[numRows].cells[numCell].firstElementChild.src = "imagen2.png";
+
+}
+
+
+
+
+}
+
+
+
+
+
+
+function agregarFila(){
+	var tabla = document.getElementById("tabla");
+	 let ultimaFila = tabla.rows.length - 1;
+	 var contenedor = tabla.innerHTML;
+	var nuevaFila = `<tr class="fila${ultimaFila + 1}" >`;
+		nuevaFila += `<th><button name="button"  onclick="changeImage(0 , ${ultimaFila + 1})" >F${ultimaFila + 1}</button></th>`
+	for (let index = 1; index < tabla.rows[0].cells.length ; index++) {
+		nuevaFila += `<td><img src="imagen1.png"  width="40"    height="40" ></td>`;		
+	}
+	nuevaFila   += '</tr>';
+
+	tabla.innerHTML += nuevaFila;
+
+}
+
+
+
+function agregarColumna(){
+	var tabla = document.getElementById("tabla");
+	let ultimaFila = tabla.rows.length - 1;
+	let ultimaColumna = tabla.rows[0].cells.length - 1;
+
+	var fila0 = document.getElementsByClassName(`botonesColumnas`)[0];
+	fila0.insertAdjacentHTML('beforeend',`<th><button name="button" onclick="changeImage(1 , ${ultimaColumna + 1})">C${ultimaColumna + 1 }</button></th>`);
+
+
+	for (let i = 1; i < ultimaFila + 1; i++) {
+	var filaI = document.getElementsByClassName(`fila${i}`)[0];
+	filaI.insertAdjacentHTML('beforeend',`<td><img src="imagen1.png"  width="40"    height="40" ></td>`);
+
+	}
+
+}
+
+
+function cantidadMovimientos(){
+	cantidadJugadas ++;
+	const probando = document.querySelector("#hola");
+	probando.textContent = "Movimientos jugados " + cantidadJugadas;
+
+}
+
+
+
+function changeImage(number1 , number2) {
+	cantidadMovimientos();
+	var tabla = document.getElementById("tabla");
+
+	//Si number1 es un 0 significa que tengo que modificar la fila , number2 es la fila que se tiene que modificar
+	//Si number1 es un 1 significa que tengo que modificar la columna , number2 es la columna que se tiene que modificar
+
+	if (number1 == 0) {
+		//Modifico la fila 
+		for (var i = 1; i < tabla.rows[0].cells.length; i++) { 
+  	 	
+		var imagenActual = tabla.rows[number2].cells[i].firstElementChild;
+		var imagenActualSrc = tabla.rows[number2].cells[i].firstElementChild.getAttribute("src");
+		 if (imagenActualSrc == "imagen1.png") {
+        	imagenActual.src = "imagen2.png";
+ 
+   		 } else {
+        	imagenActual.src  = "imagen1.png";
+ 		}
+
+}
+	}else {
+		//Modifico la columna 
+		for (var i = 1; i < tabla.rows.length ; i++) {
+  	 	
+		   var imagenActual = tabla.rows[i].cells[number2].firstElementChild;
+		   var imagenActualSrc = tabla.rows[i].cells[number2].firstElementChild.getAttribute("src");
+			if (imagenActualSrc == "imagen1.png") {
+			   imagenActual.src = "imagen2.png";
+	
+			   } else {
+			   imagenActual.src  = "imagen1.png";
+			}
+		}
+	}
+ }
+
+
+//Agregar un campo para poder ingresar la cantidad de luces apagadas
+//Boton para reninciar el juego 
+//Funcion para avisar que gano
+//
+
+
+</script>
+	
+</body>
+</html>

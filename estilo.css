@@ -1,0 +1,17 @@
+body {
+    background: rgb(14, 119, 204);
+    
+}
+
+p {
+    font-size: medium;
+}
+
+
+
+.tablero {
+    margin: 1rem;
+    padding: 1rem;
+    /* IMPORTANTE */
+    text-align: center;
+  }
